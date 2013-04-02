@@ -45,7 +45,7 @@ printStackTrace.implementation.prototype = {
 
     createException: function() {
         try {
-            this.undef();
+            throw new Error("stacktrace!"); // this.undef();
         } catch (e) {
             return e;
         }
