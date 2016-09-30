@@ -1,5 +1,6 @@
 # stacktrace.js
-## Framework-agnostic, micro-library for getting stack traces in all web browsers
+Generate, parse and enhance JavaScript stack traces in all browsers
+
 [![Build Status](https://travis-ci.org/stacktracejs/stacktrace.js.svg?branch=master)](https://travis-ci.org/stacktracejs/stacktrace.js) [![Coverage Status](https://img.shields.io/coveralls/stacktracejs/stacktrace.js.svg)](https://coveralls.io/r/stacktracejs/stacktrace.js?branch=master) [![GitHub license](https://img.shields.io/github/license/stacktracejs/stacktrace.js.svg)](http://unlicense.org)
 
 Debug and profile your JavaScript with a [stack trace](http://en.wikipedia.org/wiki/Stack_trace) of function calls leading to an error (or any condition you specify).
@@ -9,7 +10,7 @@ stacktrace.js uses browsers' `Error.stack` mechanism to generate stack traces, p
 [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 to return an Array of [StackFrames](https://github.com/stacktracejs/stackframe).
 
-#### Upgrading? Check the [0.x -> 1.x Migration Guide](http://www.stacktracejs.com/#!/docs/v0-migration-guide)
+#### Upgrading? Check the [0.x -> 1.x Migration Guide](https://www.stacktracejs.com/#!/docs/v0-migration-guide)
 
 ## Usage
 #### Get a stack trace from current location
@@ -146,11 +147,11 @@ It has a very similar API and also supports source maps.
 ## Contributing
 This project adheres to the [Open Code of Conduct](http://todogroup.org/opencodeofconduct/#stacktrace.js/me@eriwen.com). By participating, you are expected to honor this code.
 
-Want to be listed as a *Contributor*? Start with the [Contributing Guide](https://github.com/stacktracejs/stacktrace.js/blob/master/CONTRIBUTING.md)!
+Want to be listed as a *Contributor*? Start with the [Contributing Guide](https://github.com/stacktracejs/stacktrace.js/blob/master/.github/CONTRIBUTING.md)!
 
 This project is made possible due to the efforts of these fine people:
 
-* [Eric Wendelin](http://www.eriwen.com)
+* [Eric Wendelin](https://www.eriwen.com)
 * [Victor Homyakov](https://github.com/victor-homyakov)
 * [Oliver Salzburg](https://github.com/oliversalzburg)
 * [Many others](https://github.com/stacktracejs/stacktrace.js/graphs/contributors)
