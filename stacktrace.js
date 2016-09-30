@@ -280,16 +280,20 @@
 
         // Safari 5-, IE 9-, and others
         other: function(curr) {
-            var ANON = '{anonymous}', fnRE = /function\s*([\w\-$]+)?\s*\(/i, stack = [], fn, args, maxStackSize = 10;
+            var ANON = '{anonymous}', fnRE = /function(?:\s+([\w$]+))?\s*\(/, stack = [], fn, args, maxStackSize = 10;
             var slice = Array.prototype.slice;
-            while (curr && curr['arguments'] && stack.length < maxStackSize) {
+            while (curr && stack.length < maxStackSize) {
                 fn = fnRE.test(curr.toString()) ? RegExp.$1 || ANON : ANON;
-                args = slice.call(curr['arguments'] || []);
+                try {
+                    args = slice.call(curr['arguments'] || []);
+                } catch (e) {
+                    args = ['Cannot access arguments: ' + e];
+                }
                 stack[stack.length] = fn + '(' + this.stringifyArguments(args) + ')';
                 try {
                     curr = curr.caller;
                 } catch (e) {
-                    stack[stack.length] = '' + e;
+                    stack[stack.length] = 'Cannot access caller: ' + e;
                     break;
                 }
             }
@@ -338,7 +342,7 @@
         sourceCache: {},
 
         /**
-         * @return the text from a given URL
+         * @return {String} the text from a given URL
          */
         ajax: function(url) {
             var req = this.createXMLHTTPObject();
@@ -359,7 +363,7 @@
         /**
          * Try XHR methods in order and store XHR factory.
          *
-         * @return <Function> XHR function or equivalent
+         * @return {XMLHttpRequest} XHR function or equivalent
          */
         createXMLHTTPObject: function() {
             var xmlhttp, XMLHttpFactories = [
@@ -388,8 +392,8 @@
          * Given a URL, check if it is in the same domain (so we can get the source
          * via Ajax).
          *
-         * @param url <String> source url
-         * @return <Boolean> False if we need a cross-domain request
+         * @param url {String} source url
+         * @return {Boolean} False if we need a cross-domain request
          */
         isSameDomain: function(url) {
             return typeof location !== "undefined" && url.indexOf(location.hostname) !== -1; // location may not be defined, e.g. when running from nodejs.
@@ -398,8 +402,8 @@
         /**
          * Get source code from given URL if in the same domain.
          *
-         * @param url <String> JS source URL
-         * @return <Array> Array of source code lines
+         * @param url {String} JS source URL
+         * @return {Array} Array of source code lines
          */
         getSource: function(url) {
             // TODO reuse source from script tags?
