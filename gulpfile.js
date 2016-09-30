@@ -3,13 +3,14 @@ var coveralls = require('gulp-coveralls');
 var del = require('del');
 var gulp = require('gulp');
 var jshint = require('gulp-jshint');
-var karma = require('karma').server;
+var karma = require('karma');
 var runSequence = require('run-sequence');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 
 var polyfills = [
     './node_modules/es6-promise/dist/es6-promise.js',
+    './node_modules/json3/lib/json3.js',
     './polyfills.js'
 ];
 var dependencies = [
@@ -27,28 +28,33 @@ gulp.task('lint', function () {
 });
 
 gulp.task('test', function (done) {
-    karma.start({
+    var server = new karma.Server({
         configFile: __dirname + '/karma.conf.js',
         singleRun: true
     }, done);
+    server.start();
+});
+
+gulp.task('test-pr', ['dist'], function (done) {
+    new karma.Server({
+        configFile: __dirname + '/karma.conf.js',
+        browsers: ['Firefox', 'Chrome_Travis'],
+        singleRun: true
+    }, done).start();
 });
 
 gulp.task('test-ci', ['dist'], function (done) {
-    karma.start({
+    var server = new karma.Server({
         configFile: __dirname + '/karma.conf.ci.js',
         singleRun: true
     }, done);
+    server.start();
 });
 
-gulp.task('copy', function () {
-    return gulp.src(sources)
-        .pipe(gulp.dest('dist'));
-});
-
-gulp.task('dist', ['copy'], function () {
+gulp.task('dist', function () {
     gulp.src(polyfills.concat(dependencies.concat(sources)))
         .pipe(sourcemaps.init())
-        .pipe(concat(sources.replace('.js', '-with-polyfills.min.js')))
+        .pipe(concat(sources.replace('.js', '-with-promises-and-json-polyfills.min.js')))
         .pipe(uglify())
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('dist'));
