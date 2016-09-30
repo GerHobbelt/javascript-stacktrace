@@ -1,6 +1,6 @@
 # stacktrace.js
 ## Framework-agnostic, micro-library for getting stack traces in all web browsers
-[![Build Status](https://travis-ci.org/stacktracejs/stacktrace.js.svg?branch=master)](https://travis-ci.org/stacktracejs/stacktrace.js) [![Coverage Status](https://img.shields.io/coveralls/stacktracejs/stacktrace.js.svg)](https://coveralls.io/r/stacktracejs/stacktrace.js?branch=master) [![Code Climate](https://codeclimate.com/github/stacktracejs/stacktrace.js/badges/gpa.svg)](https://codeclimate.com/github/stacktracejs/stacktrace.js)
+[![Build Status](https://travis-ci.org/stacktracejs/stacktrace.js.svg?branch=master)](https://travis-ci.org/stacktracejs/stacktrace.js) [![Coverage Status](https://img.shields.io/coveralls/stacktracejs/stacktrace.js.svg)](https://coveralls.io/r/stacktracejs/stacktrace.js?branch=master) [![GitHub license](https://img.shields.io/github/license/stacktracejs/stacktrace.js.svg)](http://unlicense.org)
 
 Debug and profile your JavaScript with a [stack trace](http://en.wikipedia.org/wiki/Stack_trace) of function calls leading to an error (or any condition you specify).
 
@@ -134,13 +134,7 @@ Example JSON POST data:
 * **url: String** - URL to POST stack JSON to
 
 ## Browser Support
-* Chrome 1+
-* Firefox 3+
-* Safari 5+
-* Opera 9+
-* IE 6+
-* iOS 7+
-* Android 4.0+
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/stacktracejs.svg)](https://saucelabs.com/u/stacktracejs)
 
 > **HEADS UP**: You won't get the benefit of [source maps](http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/)
 in IE9- or other very old browsers.
