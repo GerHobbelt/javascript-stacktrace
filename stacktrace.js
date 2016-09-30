@@ -80,21 +80,15 @@
         fromError: function StackTrace$$fromError(error, opts) {
             opts = _merge(_options, opts);
             var gps = new StackTraceGPS(opts);
-            return new Promise(function(resolve) {
-                var stackframes = ErrorStackParser.parse(error);
-                if (typeof opts.filter === 'function') {
-                    stackframes = stackframes.filter(opts.filter);
-                }
-                resolve(Promise.all(stackframes.map(function(sf) {
-                    return new Promise(function(resolve) {
-                        function resolveOriginal() {
-                            resolve(sf);
-                        }
-
-                        gps.pinpoint(sf).then(resolve, resolveOriginal)['catch'](resolveOriginal);
-                    });
-                })));
-            }.bind(this));
+            var stackframes = ErrorStackParser.parse(error);
+            if (typeof opts.filter === 'function') {
+                stackframes = stackframes.filter(opts.filter);
+            }
+            return Promise.all(stackframes.map(function(sf) {
+                return gps.pinpoint(sf);
+            }).catch(function(error) {
+                return sf;
+            }));
         },
 
         /**
@@ -186,7 +180,7 @@
                 req.setRequestHeader('Content-Type', 'application/json');
 
                 var reportPayload = {stack: stackframes};
-                if (errorMsg != undefined) {
+                if (errorMsg !== undefined) {
                     reportPayload.message = errorMsg;
                 }
 
