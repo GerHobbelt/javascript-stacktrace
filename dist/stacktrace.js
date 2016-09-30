@@ -51,7 +51,7 @@
 
         createException: function() {
             try {
-                this.undef();
+                throw new Error("stacktrace!"); // this.undef();
             } catch (e) {
                 return e;
             }
@@ -333,7 +333,7 @@
             var slice = Array.prototype.slice;
             for (var i = 0; i < args.length; ++i) {
                 var arg = args[i];
-                if (arg === undefined) {
+                if (typeof arg === 'undefined') {
                     result[i] = 'undefined';
                 } else if (arg === null) {
                     result[i] = 'null';
