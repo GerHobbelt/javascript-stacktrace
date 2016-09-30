@@ -1,10 +1,22 @@
+*.seed
+*.log
+*.out
+*.pid
+*.gz
+
+pids
+logs
+results
+
+node_modules
+build
+coverage
+
+.idea
+.coveralls.yml
+
 .gradle
 */.DS_Store
 .DS_Store
 target
-.idea
-node_modules
-coverage
-.coveralls.yml
-build
 

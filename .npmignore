@@ -1,13 +1,15 @@
-target/
-test/
+node_modules/
 build/
 coverage/
-gradle/
-gradlew.*
-jshint.json
-stacktrace-bookmarklet.js
-build.gradle
-.idea
+spec/
 *.log
 .coveralls.yml
+.editorconfig
+.idea
+.travis.yml
+
+target/
+gradle/
+gradlew.*
+build.gradle
 
