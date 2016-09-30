@@ -20,6 +20,7 @@
 //
 
 (function(window, document, undefined) {
+    //region setup
     var pst = printStackTrace.implementation.prototype;
 
     var impl = function() {
@@ -58,7 +59,9 @@
             }
         }
     };
+    //endregion
 
+    //region invocation
     module("invocation");
 
     test("printStackTrace", function() {
@@ -78,7 +81,9 @@
             guess: true
         });
     });
+    //endregion
 
+    //region mode
     module("mode");
 
     test("mode", function() {
@@ -288,11 +293,11 @@
     }
 
     test("chrome", function() {
-        expect(14);
+        expect(17);
 
         var message = pst.chrome(CapturedExceptions.chrome_15);
         // equals(message.join('\n'), '', 'processed stack trace');
-        equals(message.length, 7, '7 stack entries');
+        equals(message.length, 7, 'Chrome 15: 7 stack entries');
         equals(message[0], 'Object.createException@http://127.0.0.1:8000/js/stacktrace.js:42:18');
         equals(message[1], 'Object.run@http://127.0.0.1:8000/js/stacktrace.js:31:25');
         equals(message[2], 'printStackTrace@http://127.0.0.1:8000/js/stacktrace.js:18:62');
@@ -302,12 +307,17 @@
         equals(message[6], '{anonymous}()@http://127.0.0.1:8000/js/test/functional/testcase1.html:24:4');
 
         message = pst.chrome(CapturedExceptions.chrome_27);
-        equals(message.length, 5, '5 stack entries');
+        equals(message.length, 5, 'Chrome 27: 5 stack entries');
         equals(message[0], '{anonymous}()@file:///E:/javascript-stacktrace/test/functional/ExceptionLab.js:4:9');
         equals(message[1], 'createException@file:///E:/javascript-stacktrace/test/functional/ExceptionLab.js:8:5');
         equals(message[2], 'createException4@file:///E:/javascript-stacktrace/test/functional/ExceptionLab.html:56:16');
         equals(message[3], 'dumpException4@file:///E:/javascript-stacktrace/test/functional/ExceptionLab.html:60:23');
         equals(message[4], 'HTMLButtonElement.onclick@file:///E:/javascript-stacktrace/test/functional/ExceptionLab.html:83:126');
+
+        message = pst.chrome(CapturedExceptions.chrome_31_multiline_message);
+        equals(message.length, 2, 'Chrome 31: 2 stack entries');
+        equals(message[0], 'dumpException6@file:///E:/javascript-stacktrace/test/functional/ExceptionLab.html:82:20');
+        equals(message[1], 'HTMLButtonElement.onclick@file:///E:/javascript-stacktrace/test/functional/ExceptionLab.html:101:122');
     });
 
     if (pst.mode(ex) == 'chrome') {
@@ -542,15 +552,16 @@
                 }
             }
         }], 'FUNCTION f1  (a,b,c)', frame_f2);
+
         expect(mode == 'other' ? 4 : 2);
         var message = pst.other(frame_f1);
-        var message_string = message.join("\n");
         equals(message[0].indexOf('f1(1,"abc",#function,#object)') >= 0, true, 'f1');
         equals(message[1].indexOf('{anonymous}()') >= 0, true, 'f2 anonymous');
+
         if (mode == 'other') {
             function f1(arg1, arg2) {
-                var message = pst.other(arguments.callee), message_string = message.join("\n");
-                //equals(message_string, '', 'debug');
+                var message = pst.other(arguments.callee);
+                //equals(message.join("\n"), '', 'debug');
                 equals(message[0].indexOf('f1(1,"abc",#function,#object)') >= 0, true, 'f1');
                 equals(message[1].indexOf('{anonymous}()') >= 0, true, 'f2 anonymous');
             }
@@ -568,6 +579,39 @@
         }
     });
 
+    test("other in strict mode", function() {
+        var results = [];
+        var p = impl();
+
+        function f1() {
+            try {
+                this.undef();
+            } catch (e) {
+                debugger;
+                results = p.run(e, 'other');
+            }
+        }
+
+        function f2() {
+            f1();
+        }
+
+        function f3() {
+            "use strict";
+            f2();
+        }
+
+        f3();
+
+        ok(results.length >= 3, 'Stack should contain at least 3 frames in non-strict mode');
+        //equals(results, '', 'debug');
+        equals(results[1], 'f1()');
+        equals(results[2], 'f2()');
+    });
+
+    //endregion
+
+    //region util
     module("util");
 
     test("stringify", function() {
@@ -802,7 +846,7 @@
                 this.undef();
             } catch (e) {
                 if (p.mode(e) == 'opera11') {
-                    results.push(p.run());
+                    results.push(p.run(e));
                 }
             }
         };
@@ -840,4 +884,5 @@
             equals(p.guessAnonymousFunctions(results[i])[0].indexOf('{anonymous}'), 0, 'no file and line number in "other" mode');
         }
     });
+    //endregion
 })(window, document);

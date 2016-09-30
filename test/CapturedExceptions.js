@@ -229,6 +229,22 @@ CapturedExceptions.chrome_27 = {
         "    at HTMLButtonElement.onclick (file:///E:/javascript-stacktrace/test/functional/ExceptionLab.html:83:126)"
 };
 
+CapturedExceptions.chrome_31_multiline_message = {
+    message: "Object function () {\n" +
+        "                return {\n" +
+        "                    name: \"provide multi-line source in exception\"\n" +
+        "                };\n" +
+        "            } has no method 'nonExistentMethod'",
+    name: "TypeError",
+    stack: "TypeError: Object function () {\n" +
+        "                return {\n" +
+        "                    name: \"provide multi-line source in exception\"\n" +
+        "                };\n" +
+        "            } has no method 'nonExistentMethod'\n" +
+        "    at dumpException6 (file:///E:/javascript-stacktrace/test/functional/ExceptionLab.html:82:20)\n" +
+        "    at HTMLButtonElement.onclick (file:///E:/javascript-stacktrace/test/functional/ExceptionLab.html:101:122)"
+};
+
 CapturedExceptions.firefox_3_6 = {
     fileName: "http://127.0.0.1:8000/js/stacktrace.js",
     lineNumber: 44,
@@ -315,4 +331,22 @@ CapturedExceptions.ie_10 = {
         "   at onclick (http://jenkins.eriwen.com/job/stacktrace.js/ws/test/functional/ExceptionLab.html:82:1)",
     description: "Unable to get property 'undef' of undefined or null reference",
     number: -2146823281
+};
+
+CapturedExceptions.node_simple = {
+    message: 'x is not defined',
+    name: 'ReferenceError',
+    type: 'not_defined',
+    stack: 'ReferenceError: x is not defined\n' +
+        '    at repl:1:5\n' +
+        '    at REPLServer.self.eval (repl.js:110:21)\n' +
+        '    at repl.js:249:20\n' +
+        '    at REPLServer.self.eval (repl.js:122:7)\n' +
+        '    at Interface.<anonymous> (repl.js:239:12)\n' +
+        '    at Interface.EventEmitter.emit (events.js:95:17)\n' +
+        '    at Interface._onLine (readline.js:202:10)\n' +
+        '    at Interface._line (readline.js:531:8)\n' +
+        '    at Interface._ttyWrite (readline.js:760:14)\n' +
+        '    at ReadStream.onkeypress (readline.js:99:10)',
+    'arguments': [ 'x' ]
 };
