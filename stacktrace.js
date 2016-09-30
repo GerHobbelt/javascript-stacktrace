@@ -22,6 +22,15 @@
         sourceCache: {}
     };
 
+    var _generateError = function StackTrace$$GenerateError() {
+        try {
+            // Error must be thrown to get stack in IE
+            throw new Error();
+        } catch (err) {
+            return err;
+        }
+    };
+
     /**
      * Merge 2 given Objects. If a conflict occurs the second object wins.
      * Does not do deep merges.
@@ -50,6 +59,13 @@
         return err.stack || err['opera#sourceloc'];
     }
 
+    function _filtered(stackframes, filter) {
+        if (typeof filter === 'function') {
+            return stackframes.filter(filter);
+        }
+        return stackframes;
+    }
+
     return {
         /**
          * Get a backtrace from invocation point.
@@ -58,16 +74,22 @@
          * @returns {Array} of StackFrame
          */
         get: function StackTrace$$get(opts) {
-            try {
-                // Error must be thrown to get stack in IE
-                throw new Error();
-            } catch (err) {
-                if (_isShapedLikeParsableError(err)) {
-                    return this.fromError(err, opts);
-                } else {
-                    return this.generateArtificially(opts);
-                }
-            }
+            var err = _generateError();
+            return _isShapedLikeParsableError(err) ? this.fromError(err, opts) : this.generateArtificially(opts);
+        },
+
+        /**
+         * Get a backtrace from invocation point.
+         * IMPORTANT: Does not handle source maps or guess function names!
+         *
+         * @param {Object} opts
+         * @returns {Array} of StackFrame
+         */
+        getSync: function StackTrace$$getSync(opts) {
+            opts = _merge(_options, opts);
+            var err = _generateError();
+            var stack = _isShapedLikeParsableError(err) ? ErrorStackParser.parse(err) : StackGenerator.backtrace(opts);
+            return _filtered(stack, opts.filter);
         },
 
         /**
@@ -81,10 +103,7 @@
             opts = _merge(_options, opts);
             var gps = new StackTraceGPS(opts);
             return new Promise(function(resolve) {
-                var stackframes = ErrorStackParser.parse(error);
-                if (typeof opts.filter === 'function') {
-                    stackframes = stackframes.filter(opts.filter);
-                }
+                var stackframes = _filtered(ErrorStackParser.parse(error), opts.filter);
                 resolve(Promise.all(stackframes.map(function(sf) {
                     return new Promise(function(resolve) {
                         function resolveOriginal() {
