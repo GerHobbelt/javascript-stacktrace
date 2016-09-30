@@ -26,3 +26,6 @@ Want to be listed as a *Contributor*? Make a pull request with:
 * (Any browser, remotely) If you have a [Sauce Labs](https://saucelabs.com) account, you can run `make ci`.
  Make sure the target browser is enabled in [Karma CI Config](karma.conf.ci.js).
  Otherwise, Travis will run all browsers if you submit a Pull Request. 
+* If you want to test on an individual browser while developing you can do something like this:
+   * `karma start karma.conf.js --browsers=Chrome --single-run=false --debug`
+   * For easier debugging, comment out the coverage processor in the karma configuration while you're working
