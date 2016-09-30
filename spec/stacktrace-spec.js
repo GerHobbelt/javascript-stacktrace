@@ -192,7 +192,25 @@ describe('StackTrace', function() {
             jasmine.Ajax.uninstall();
         });
 
-        it('sends POST request to given URL', function(done) {
+        it('sends POST request to given URL with a message', function(done) {
+            var url = 'http://domain.ext/endpoint';
+            var errorMsg = 'BOOM';
+            var stackframes = [new StackFrame('fn', undefined, 'file.js', 32, 1)];
+
+            StackTrace.report(stackframes, url, errorMsg).then(callback, done.fail)['catch'](done.fail);
+
+            var postRequest = jasmine.Ajax.requests.mostRecent();
+            postRequest.respondWith({status: 201, contentType: 'text/plain', responseText: 'OK'});
+
+            function callback() {
+                expect(postRequest.data()).toEqual({message: errorMsg, stack: stackframes});
+                expect(postRequest.method).toBe('post');
+                expect(postRequest.url).toBe(url);
+                done();
+            }
+        });
+
+        it('sends POST request to given URL without a message', function(done) {
             var url = 'http://domain.ext/endpoint';
             var stackframes = [new StackFrame('fn', undefined, 'file.js', 32, 1)];
 
