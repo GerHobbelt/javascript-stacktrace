@@ -60,8 +60,8 @@ gulp.task('dist', function() {
         .pipe(vinylSourceStream(sources))
         .pipe(gulp.dest('dist'))
         .pipe(vinylBuffer())
-        .pipe(rename({extname: '.min.js'}))
-        .pipe(uglify())
+        // .pipe(rename({extname: '.min.js'}))
+        // .pipe(uglify())
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('dist'));
@@ -74,8 +74,8 @@ gulp.task('dist', function() {
         .pipe(vinylSourceStream('stacktrace.js'))
         .pipe(vinylBuffer())
         .pipe(concat(sources.replace('.js', '-with-promises-and-json-polyfills.js')))
-        .pipe(uglify())
-        .pipe(rename({extname: '.min.js'}))
+        // .pipe(uglify())
+        // .pipe(rename({extname: '.min.js'}))
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest('dist'));

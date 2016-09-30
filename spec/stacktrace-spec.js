@@ -13,7 +13,7 @@ describe('StackTrace', function() {
             StackTrace.get().then(callback, done.fail)['catch'](done.fail);
 
             function callback(stackFrames) {
-                expect(stackFrames[0].functionName).toMatch(/.*testStackTraceGet123$/);
+                expect(stackFrames[0].functionName).toMatch(/.*testStackTraceGet$/);
                 done();
             }
         });
