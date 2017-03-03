@@ -27,14 +27,14 @@
     function printStackTrace(options) {
         options = options || {guess: true};
         var ex = options.e || null, guess = !!options.guess, mode = options.mode || null;
-        var p = new printStackTrace.implementation(), result = p.run(ex, mode);
+        var p = new printStackTraceImp(), result = p.run(ex, mode);
         return (guess) ? p.guessAnonymousFunctions(result) : result;
     }
 
-    printStackTrace.implementation = function() {
+    printStackTraceImp = function() {
     };
 
-    printStackTrace.implementation.prototype = {
+    printStackTraceImp.prototype = {
         /**
          * @param {Error} [ex] The error to create a stacktrace from (optional)
          * @param {String} [mode] Forced mode (optional, mostly for unit tests)

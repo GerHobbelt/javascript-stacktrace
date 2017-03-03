@@ -84,6 +84,6 @@ It is currently tested and working on:
 This project is made possible due to the efforts of these fine people:
 
 * [Eric Wendelin](http://www.eriwen.com)
-* [Victor Homyakov] (https://github.com/victor-homyakov)
+* [Victor Homyakov](https://github.com/victor-homyakov)
 * [Luke Smith](http://lucassmith.name/)
 * [Many others](https://github.com/stacktracejs/stacktrace.js/graphs/contributors)
