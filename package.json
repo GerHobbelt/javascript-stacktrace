@@ -1,13 +1,13 @@
 {
-  "name": "stacktrace-js",
+  "name": "stacktrace-js-legacy",
   "description": "Framework-agnostic, micro-library for getting stack traces in all environments",
-  "author": "Eric Wendelin <me@eriwen.com> (http://www.eriwen.com)",
-  "version": "0.6.4",
+  "author": "Michele Olivo <mo@zextras.com> (http://www.zextras.com)",
+  "version": "0.6.5",
   "keywords": ["stack-trace", "cross-browser", "framework-agnostic", "client", "browser"],
-  "homepage": "http://stacktracejs.com",
+  "homepage": "https://github.com/ZeXtras/stacktrace.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/stacktracejs/stacktrace.js.git"
+    "url": "git@github.com:ZeXtras/stacktrace.js.git"
   },
   "main": "./stacktrace.js",
   "engines": {
