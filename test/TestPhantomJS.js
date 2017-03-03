@@ -15,7 +15,7 @@ function f1() {
         //console.log(exLab.getExceptionProps(e.stackArray[3]));
 
         console.log('stack:', printStackTrace({e: e}));
-        var p = new printStackTrace.implementation();
+        var p = new printStackTraceImp();
         console.log('other:', p.run(e, 'other'));
     }
 }

@@ -40,7 +40,7 @@ You can now have any (public or privileged) function give you a stacktrace when 
 function logStackTrace(stack) {
     console.log(stack.join('\n'));
 }
-var p = new printStackTrace.implementation();
+var p = new printStackTraceImp();
 p.instrumentFunction(this, 'baz', logStackTrace);
 
 function foo() {

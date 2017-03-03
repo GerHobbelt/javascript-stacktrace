@@ -22,7 +22,7 @@
 				bar();
 			};
 
-			var p = new window.printStackTrace.implementation();
+			var p = new window.printStackTraceImp();
 			p.instrumentFunction(this, 'baz', printTrace);
 
 			expected = ["bar()", "foo()"];

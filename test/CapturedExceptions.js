@@ -8,7 +8,7 @@ CapturedExceptions.opera_854 = {
         "  Line 31 of linked script file://localhost/G:/js/stacktrace.js\n" +
         "    ex = ex || this.createException();\n" +
         "  Line 18 of linked script file://localhost/G:/js/stacktrace.js\n" +
-        "    var p = new printStackTrace.implementation(), result = p.run(ex);\n" +
+        "    var p = new printStackTraceImp(), result = p.run(ex);\n" +
         "  Line 4 of inline#1 script in file://localhost/G:/js/test/functional/testcase1.html\n" +
         "    printTrace(printStackTrace());\n" +
         "  Line 7 of inline#1 script in file://localhost/G:/js/test/functional/testcase1.html\n" +
@@ -29,7 +29,7 @@ CapturedExceptions.opera_902 = {
         "  Line 31 of linked script file://localhost/G:/js/stacktrace.js\n" +
         "    ex = ex || this.createException();\n" +
         "  Line 18 of linked script file://localhost/G:/js/stacktrace.js\n" +
-        "    var p = new printStackTrace.implementation(), result = p.run(ex);\n" +
+        "    var p = new printStackTraceImp(), result = p.run(ex);\n" +
         "  Line 4 of inline#1 script in file://localhost/G:/js/test/functional/testcase1.html\n" +
         "    printTrace(printStackTrace());\n" +
         "  Line 7 of inline#1 script in file://localhost/G:/js/test/functional/testcase1.html\n" +
@@ -50,7 +50,7 @@ CapturedExceptions.opera_927 = {
         "  Line 31 of linked script file://localhost/G:/js/stacktrace.js\n" +
         "    ex = ex || this.createException();\n" +
         "  Line 18 of linked script file://localhost/G:/js/stacktrace.js\n" +
-        "    var p = new printStackTrace.implementation(), result = p.run(ex);\n" +
+        "    var p = new printStackTraceImp(), result = p.run(ex);\n" +
         "  Line 4 of inline#1 script in file://localhost/G:/js/test/functional/testcase1.html\n" +
         "    printTrace(printStackTrace());\n" +
         "  Line 7 of inline#1 script in file://localhost/G:/js/test/functional/testcase1.html\n" +
@@ -71,7 +71,7 @@ CapturedExceptions.opera_964 = {
         "  Line 27 of linked script file://localhost/G:/js/stacktrace.js\n" +
         "            ex = ex || this.createException();\n" +
         "  Line 18 of linked script file://localhost/G:/js/stacktrace.js: In function printStackTrace\n" +
-        "        var p = new printStackTrace.implementation(), result = p.run(ex);\n" +
+        "        var p = new printStackTraceImp(), result = p.run(ex);\n" +
         "  Line 4 of inline#1 script in file://localhost/G:/js/test/functional/testcase1.html: In function bar\n" +
         "             printTrace(printStackTrace());\n" +
         "  Line 7 of inline#1 script in file://localhost/G:/js/test/functional/testcase1.html: In function bar\n" +
@@ -85,7 +85,7 @@ CapturedExceptions.opera_964 = {
     stacktrace: "  ...  Line 27 of linked script file://localhost/G:/js/stacktrace.js\n" +
         "            ex = ex || this.createException();\n" +
         "  Line 18 of linked script file://localhost/G:/js/stacktrace.js: In function printStackTrace\n" +
-        "        var p = new printStackTrace.implementation(), result = p.run(ex);\n" +
+        "        var p = new printStackTraceImp(), result = p.run(ex);\n" +
         "  Line 4 of inline#1 script in file://localhost/G:/js/test/functional/testcase1.html: In function bar\n" +
         "             printTrace(printStackTrace());\n" +
         "  Line 7 of inline#1 script in file://localhost/G:/js/test/functional/testcase1.html: In function bar\n" +
@@ -105,7 +105,7 @@ CapturedExceptions.opera_1010 = {
         "  Line 27 of linked script file://localhost/G:/js/stacktrace.js\n" +
         "            ex = ex || this.createException();\n" +
         "  Line 18 of linked script file://localhost/G:/js/stacktrace.js: In function printStackTrace\n" +
-        "        var p = new printStackTrace.implementation(), result = p.run(ex);\n" +
+        "        var p = new printStackTraceImp(), result = p.run(ex);\n" +
         "  Line 4 of inline#1 script in file://localhost/G:/js/test/functional/testcase1.html: In function bar\n" +
         "             printTrace(printStackTrace());\n" +
         "  Line 7 of inline#1 script in file://localhost/G:/js/test/functional/testcase1.html: In function bar\n" +
@@ -149,7 +149,7 @@ CapturedExceptions.opera_1111 = {
         "called from line 27, column 8 in <anonymous function: run>(ex) in file://localhost/G:/js/stacktrace.js:\n" +
         "    ex = ex || this.createException();\n" +
         "called from line 18, column 4 in printStackTrace(options) in file://localhost/G:/js/stacktrace.js:\n" +
-        "    var p = new printStackTrace.implementation(), result = p.run(ex);\n" +
+        "    var p = new printStackTraceImp(), result = p.run(ex);\n" +
         "called from line 4, column 5 in bar(n) in file://localhost/G:/js/test/functional/testcase1.html:\n" +
         "    printTrace(printStackTrace());\n" +
         "called from line 7, column 4 in bar(n) in file://localhost/G:/js/test/functional/testcase1.html:\n" +
@@ -174,7 +174,7 @@ CapturedExceptions.opera_1151 = {
         "called from line 27, column 8 in <anonymous function: run>(ex) in file://localhost/G:/js/stacktrace.js:\n" +
         "    ex = ex || this.createException();\n" +
         "called from line 18, column 4 in printStackTrace(options) in file://localhost/G:/js/stacktrace.js:\n" +
-        "    var p = new printStackTrace.implementation(), result = p.run(ex);\n" +
+        "    var p = new printStackTraceImp(), result = p.run(ex);\n" +
         "called from line 4, column 5 in bar(n) in file://localhost/G:/js/test/functional/testcase1.html:\n" +
         "    printTrace(printStackTrace());\n" +
         "called from line 7, column 4 in bar(n) in file://localhost/G:/js/test/functional/testcase1.html:\n" +

@@ -21,10 +21,10 @@
 
 (function(window, document, undefined) {
     //region setup
-    var pst = printStackTrace.implementation.prototype;
+    var pst = printStackTraceImp.prototype;
 
     var impl = function() {
-        return new printStackTrace.implementation();
+        return new printStackTraceImp();
     };
 
     var ex;

@@ -53,7 +53,7 @@ if (errorCondition) {
 			<li>You can now have any (public or privileged) function give you a stacktrace when it is called:</li>
 		</ul>
 		<code>
-			<pre>var p = new printStackTrace.implementation();
+			<pre>var p = new printStackTraceImp();
   p.instrumentFunction(this, 'bar', logStackTrace);  
 function logStackTrace(stack) {
       console.log(stack.join('\n'));
