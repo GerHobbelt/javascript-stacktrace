@@ -7,6 +7,7 @@ module.exports = function(config) {
             'node_modules/stacktrace-gps/dist/stacktrace-gps.min.js',
             'node_modules/error-stack-parser/dist/error-stack-parser.js',
             'node_modules/stack-generator/dist/stack-generator.js',
+            'node_modules/jasmine-ajax/lib/mock-ajax.js',
             'stacktrace.js',
             'spec/fixtures/*.js',
             'spec/spec-helper.js',
@@ -25,6 +26,6 @@ module.exports = function(config) {
         },
         //browsers: ['ChromeCanary', 'Firefox'],
         browsers: ['PhantomJS2'],
-        singleRun: false
+        singleRun: true
     });
 };

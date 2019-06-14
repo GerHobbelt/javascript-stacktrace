@@ -1,4 +1,3 @@
-// jscs:disable maximumLineLength
 /* global Errors: false */
 describe('StackTrace', function() {
 
@@ -41,7 +40,15 @@ describe('StackTrace', function() {
 
         it('rejects with Error given unparsable Error object', function(done) {
             StackTrace.fromError({message: 'ERROR_MESSAGE'})
-                .then(done.fail)['catch'](done);
+                .then(function () {
+                    done.fail();
+                 })
+                .catch(function () {
+                    // prevent jasmine failure "spec has no expectations".
+                    // See also: https://github.com/jasmine/jasmine/issues/1221
+                    expect().nothing();
+                    done();
+                  });
         });
 
         it('parses stacktrace from given Error object', function(done) {
@@ -242,7 +249,16 @@ describe('StackTrace', function() {
             var stackframes = [new StackFrame({functionName: 'fn', fileName: 'file.js', lineNumber: 32, columnNumber: 1})];
 
             jasmine.Ajax.stubRequest(url).andError();
-            StackTrace.report(stackframes, url).then(done.fail, done)['catch'](done);
+            StackTrace.report(stackframes, url)
+            .then(function () {
+                done.fail();
+            })
+            .catch(function () {
+                // prevent jasmine failure "spec has no expectations".
+                // See also: https://github.com/jasmine/jasmine/issues/1221
+                expect().nothing();
+                done();
+            });
         });
 
         it('allows specification of request headers', function(done) {
