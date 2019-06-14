@@ -730,7 +730,7 @@ function Enumerator(Constructor, input) {
 
 function validationError() {
   return new Error('Array Methods must be provided an Array');
-};
+}
 
 Enumerator.prototype._enumerate = function () {
   var length = this.length;
@@ -1377,7 +1377,7 @@ return Promise;
 },{"_process":4}],3:[function(require,module,exports){
 (function (global){
 /*! JSON v3.3.2 | http://bestiejs.github.io/json3 | Copyright 2012-2014, Kit Cambridge | http://kit.mit-license.org */
-;(function () {
+(function () {
   // Detect the `define` function exposed by asynchronous module loaders. The
   // strict `define` check is necessary for compatibility with `r.js`.
   var isLoader = typeof define === "function" && define.amd;

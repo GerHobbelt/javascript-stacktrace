@@ -3,7 +3,7 @@ var concat = require('gulp-concat');
 var coveralls = require('gulp-coveralls');
 var del = require('del');
 var gulp = require('gulp');
-var jshint = require('gulp-jshint');
+var eslint = require('gulp-eslint');
 var karma = require('karma');
 var path = require('path');
 var rename = require('gulp-rename');
@@ -20,30 +20,32 @@ var polyfills = [
 ];
 var sources = 'stacktrace.js';
 
-gulp.task('lint', function() {
+export.lint = function() {
     return gulp.src(sources)
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'))
-        .pipe(jshint.reporter('fail'));
-});
+        .pipe(eslint())
+        .pipe(eslint.reporter('default'))
+        .pipe(eslint.reporter('fail'));
+};
 
-gulp.task('test', function(done) {
+export.test = function(done) {
     var server = new karma.Server({
         configFile: __dirname + '/karma.conf.js',
         singleRun: true
     }, done);
     server.start();
-});
+};
 
-gulp.task('test-pr', ['dist'], function(done) {
+export.test_ff = function test_ff(done) {
     new karma.Server({
         configFile: __dirname + '/karma.conf.js',
         browsers: ['Firefox', 'Chrome_Travis'],
         singleRun: true
     }, done).start();
-});
+};
 
-gulp.task('test-ci', ['dist'], function(done) {
+export.test_pr = gulp.series(dist, test_ff);
+
+export.test_ci = gulp.task('test-ci', ['dist'], function(done) {
     var server = new karma.Server({
         configFile: __dirname + '/karma.conf.ci.js',
         singleRun: true
