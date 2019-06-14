@@ -21,4 +21,4 @@ before_install:
 before_script:
 - npm install
 script:
-- if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then npm run test-ci; else npm test; fi
+- npm test
