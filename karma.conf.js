@@ -24,7 +24,7 @@ module.exports = function(config) {
                 flags: ['--no-sandbox']
             }
         },
-        //browsers: ['ChromeCanary', 'Firefox'],
+        //browsers: ['PhantomJS2', 'Chrome', 'Firefox'],
         browsers: ['PhantomJS2'],
         singleRun: true
     });
