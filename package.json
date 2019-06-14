@@ -4,10 +4,11 @@
   "maintainers": [
     "Eric Wendelin <me@eriwen.com> (https://www.eriwen.com)",
     "Victor Homyakov <vkhomyackov@gmail.com> (https://github.com/victor-homyakov)",
-    "Oliver Salzburg (https://github.com/oliversalzburg)"
+    "Oliver Salzburg (https://github.com/oliversalzburg)",
+    "Ben Gourley (https://github.com/bengourley)"
   ],
-  "version": "1.3.2-5",
-  "license": "Unlicense",
+  "version": "2.0.0-6",
+  "license": "MIT",
   "keywords": [
     "stacktrace",
     "error",

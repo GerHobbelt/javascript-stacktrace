@@ -8,17 +8,23 @@ module.exports = function(config) {
     // Commented some of these out just so CI doesn't take forever.
     // Check out https://saucelabs.com/platforms for all browser/platform combos
     var customLaunchers = {
-        slIOS8: {
-            base: 'SauceLabs',
-            browserName: 'iPhone',
-            platform: 'OS X 10.10',
-            version: '8.4'
-        },
         slIOS9: {
+            appiumVersion: '1.6.3',
             base: 'SauceLabs',
-            browserName: 'iPhone',
-            platform: 'OS X 10.11',
-            version: '9.1'
+            browserName: 'Safari',
+            deviceName: 'iPhone 6s Simulator',
+            deviceOrientation: 'portrait',
+            platformName: 'iOS',
+            platformVersion: '9.3'
+        },
+        slIOS10: {
+            appiumVersion: '1.6.3',
+            base: 'SauceLabs',
+            browserName: 'Safari',
+            deviceName: 'iPhone 7 Simulator',
+            deviceOrientation: 'portrait',
+            platformName: 'iOS',
+            platformVersion: '10.2'
         },
         slAndroid4: {
             base: 'SauceLabs',
@@ -32,37 +38,56 @@ module.exports = function(config) {
             platform: 'Linux',
             version: '5.1'
         },
+        slAndroid6: {
+            base: 'SauceLabs',
+            browserName: 'Android',
+            platform: 'Linux',
+            version: '6.0'
+        },
         slChrome: {
             base: 'SauceLabs',
-            browserName: 'chrome'
+            browserName: 'chrome',
+            version: 'latest'
         },
-        slFirefox43: {
+        slChromeBeta: {
+            base: 'SauceLabs',
+            browserName: 'chrome',
+            version: 'beta'
+        },
+        slFirefox: {
             base: 'SauceLabs',
             browserName: 'firefox',
-            platform: 'Windows 8.1',
-            version: '43.0'
+            version: 'latest'
         },
         slSafari8: {
             base: 'SauceLabs',
             browserName: 'safari',
             platform: 'OS X 10.10',
-            version: '8'
+            version: '8.0'
         },
         slSafari9: {
             base: 'SauceLabs',
             browserName: 'safari',
             platform: 'OS X 10.11',
-            version: '9'
+            version: '9.0'
         },
-        slOpera: {
+        slSafari10: {
             base: 'SauceLabs',
-            browserName: 'opera'
+            browserName: 'safari',
+            platform: 'macOS 10.12',
+            version: '10.0'
         },
-        slEdge20: {
+        slEdge14: {
             base: 'SauceLabs',
             browserName: 'microsoftedge',
             platform: 'Windows 10',
-            version: '20.10240'
+            version: '14.14393'
+        },
+        slEdge13: {
+            base: 'SauceLabs',
+            browserName: 'microsoftedge',
+            platform: 'Windows 10',
+            version: '13.10586'
         },
         slIE11: {
             base: 'SauceLabs',
@@ -80,15 +105,15 @@ module.exports = function(config) {
             base: 'SauceLabs',
             browserName: 'internet explorer',
             platform: 'Windows 7',
-            version: '9'
+            version: '9.0'
         }
-        // Commented out due to lack of polyfills for SourceMapConsumer
-        //slIE8: {
-        //    base: 'SauceLabs',
-        //    browserName: 'internet explorer',
-        //    platform: 'Windows XP',
-        //    version: '8'
-        //},
+        // Too unreliable on Sauce :(
+        // slIE8: {
+        //     base: 'SauceLabs',
+        //     browserName: 'internet explorer',
+        //     platform: 'Windows XP',
+        //     version: '8.0'
+        // }
         //slIE7: {
         //    base: 'SauceLabs',
         //    browserName: 'internet explorer',

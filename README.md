@@ -1,7 +1,13 @@
 # stacktrace.js
 Generate, parse and enhance JavaScript stack traces in all browsers
 
-[![Build Status](https://travis-ci.org/stacktracejs/stacktrace.js.svg?branch=master)](https://travis-ci.org/stacktracejs/stacktrace.js) [![Coverage Status](https://img.shields.io/coveralls/stacktracejs/stacktrace.js.svg)](https://coveralls.io/r/stacktracejs/stacktrace.js?branch=master) [![GitHub license](https://img.shields.io/github/license/stacktracejs/stacktrace.js.svg)](http://unlicense.org)
+[![Build Status](https://img.shields.io/travis/stacktracejs/stacktrace.js/master.svg?style=flat-square)](https://travis-ci.org/stacktracejs/stacktrace.js) 
+[![Coverage Status](https://img.shields.io/coveralls/stacktracejs/stacktrace.js.svg?style=flat-square)](https://coveralls.io/r/stacktracejs/stacktrace.js?branch=master) 
+[![GitHub license](https://img.shields.io/github/license/stacktracejs/stacktrace.js.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![CDNJS](https://img.shields.io/cdnjs/v/stacktrace.js.svg?style=flat-square)](https://cdnjs.com/libraries/stacktrace.js)
+[![size with dependencies](https://img.shields.io/badge/size-29.9k-green.svg?style=flat-square)](https://github.com/stacktracejs/stacktrace.js/releases)
+[![gzip size](https://img.shields.io/badge/gzipped-9.1k-green.svg?style=flat-square)](https://github.com/stacktracejs/stacktrace.js/releases)
+[![module format](https://img.shields.io/badge/module%20format-umd-lightgrey.svg?style=flat-square&colorB=ff69b4)](https://github.com/stacktracejs/stacktrace.js/releases)
 
 Debug and profile your JavaScript with a [stack trace](http://en.wikipedia.org/wiki/Stack_trace) of function calls leading to an error (or any condition you specify).
 
@@ -24,9 +30,23 @@ var callback = function(stackframes) {
 
 var errback = function(err) { console.log(err.message); };
 
-StackTrace.get().then(callback).catch(errback)
-=> Promise(Array[StackFrame], Error)
-=> callback([StackFrame('func1', [], 'file.js', 203, 9), StackFrame('func2', [], 'http://localhost:3000/file.min.js', 1, 3284)])
+StackTrace.get().then(callback).catch(errback);
+//===> Promise(Array[StackFrame], Error)
+//===> callback([
+//    StackFrame({functionName: 'func1', args: [], fileName: 'file.js', lineNumber: 203, columnNumber: 9}), 
+//    StackFrame({functionName: 'func2', args: [], fileName: 'http://localhost:3000/file.min.js', lineNumber: 1, columnNumber: 3284})
+//])
+```
+
+#### You can also get a stack trace synchronously
+**HEADS UP:** This method does not resolve source maps or guess anonymous function names.
+
+```js
+StackTrace.getSync();
+//==> [
+//      StackFrame({functionName: 'func1', args: [], fileName: 'file.js', lineNumber: 203, columnNumber: 9}), 
+//      StackFrame({functionName: 'func2', args: [], fileName: 'http://localhost:3000/file.min.js', lineNumber: 1, columnNumber: 3284})
+//]
 ```
 
 #### window.onerror integration
@@ -42,29 +62,29 @@ window.onerror = function(msg, file, line, col, error) {
 ```js
 var error = new Error('BOOM!');
 
-StackTrace.fromError(error).then(callback).catch(errback)
-=> Promise(Array[StackFrame], Error)
+StackTrace.fromError(error).then(callback).catch(errback);
+//===> Promise(Array[StackFrame], Error)
 ```
 
 #### Generate a stacktrace from walking arguments.callee
 This might capture arguments information, but isn't supported in ES5 strict-mode
 ```js
-StackTrace.generateArtificially().then(callback).catch(errback)
-=> Promise(Array[StackFrame], Error)
+StackTrace.generateArtificially().then(callback).catch(errback);
+//===> Promise(Array[StackFrame], Error)
 ```
 
 #### Trace every time a given function is invoked
 ```js
 // callback is called with an Array[StackFrame] every time wrapped function is called
-var myFunc = function(arg) { return 'Hello ' + arg; }
-var myWrappedFunc = StackTrace.instrument(myFunc, callback, errback)
-=> Instrumented Function
+var myFunc = function(arg) { return 'Hello ' + arg; };
+var myWrappedFunc = StackTrace.instrument(myFunc, callback, errback);
+//===> Instrumented Function
 myWrappedFunc('world');
-=> 'Hello world'
+//===> 'Hello world'
 
 // Use this if you overwrote you original function
-myFunc = StackTrace.deinstrument(myFunc)
-=> De-instrumented Function
+myFunc = StackTrace.deinstrument(myFunc);
+//===> De-instrumented Function
 ```
 
 ## Get stacktrace.js
@@ -86,7 +106,7 @@ Generate a backtrace from invocation point, then parse and enhance it.
 * *offline: Boolean (default: false)* - Set to `true` to prevent all network requests
 
 #### `StackTrace.getSync(/*optional*/ options)` => Array[[StackFrame](https://github.com/stacktracejs/stackframe)]
-Generate a backtrace from invocation point, then parse it. **HEADS UP:** This method does not use source maps or guess anonymous functions.  
+Generate a backtrace from invocation point, then parse it. This method does not use source maps or guess anonymous functions.  
 
 **(Optional) options: Object**
 * *filter: Function([StackFrame](https://github.com/stacktracejs/stackframe) => Boolean)* - Only include stack entries matching for which `filter` returns `true`
@@ -123,7 +143,7 @@ Given a function that has been instrumented, revert the function to it's origina
 
 * **fn: Function** - Instrumented Function
 
-#### `StackTrace.report(stackframes, url, message)` => [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)(String)
+#### `StackTrace.report(stackframes, url, message, requestOptions)` => [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)(String)
 Given an an error message and Array of StackFrames, serialize and POST to given URL. Promise is resolved with response text from POST request.
 
 Example JSON POST data:
@@ -138,9 +158,10 @@ Example JSON POST data:
 }
 ```
 
-* **message: String** - The error message
 * **stackframes: Array([StackFrame](https://github.com/stacktracejs/stackframe))** - Previously wrapped Function
 * **url: String** - URL to POST stack JSON to
+* **message: String** - The error message
+* **requestOptions: Object** - HTTP request options object. Only `headers: {key: val}` is supported.
 
 ## Browser Support
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/stacktracejs.svg)](https://saucelabs.com/u/stacktracejs)

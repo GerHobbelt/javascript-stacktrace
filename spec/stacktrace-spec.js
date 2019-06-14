@@ -207,7 +207,7 @@ describe('StackTrace', function() {
         it('sends POST request to given URL with a message', function(done) {
             var url = 'http://domain.ext/endpoint';
             var errorMsg = 'BOOM';
-            var stackframes = [new StackFrame('fn', undefined, 'file.js', 32, 1)];
+            var stackframes = [new StackFrame({functionName: 'fn', fileName: 'file.js', lineNumber: 32, columnNumber: 1})];
 
             StackTrace.report(stackframes, url, errorMsg).then(callback, done.fail)['catch'](done.fail);
 
@@ -216,15 +216,13 @@ describe('StackTrace', function() {
 
             function callback() {
                 expect(postRequest.data()).toEqual({message: errorMsg, stack: stackframes});
-                expect(postRequest.method).toBe('post');
-                expect(postRequest.url).toBe(url);
                 done();
             }
         });
 
         it('sends POST request to given URL without a message', function(done) {
             var url = 'http://domain.ext/endpoint';
-            var stackframes = [new StackFrame('fn', undefined, 'file.js', 32, 1)];
+            var stackframes = [new StackFrame({functionName: 'fn', fileName: 'file.js', lineNumber: 32, columnNumber: 1})];
 
             StackTrace.report(stackframes, url).then(callback, done.fail)['catch'](done.fail);
 
@@ -241,10 +239,27 @@ describe('StackTrace', function() {
 
         it('rejects if POST request fails', function(done) {
             var url = 'http://domain.ext/endpoint';
-            var stackframes = [new StackFrame('fn', undefined, 'file.js', 32, 1)];
+            var stackframes = [new StackFrame({functionName: 'fn', fileName: 'file.js', lineNumber: 32, columnNumber: 1})];
 
             jasmine.Ajax.stubRequest(url).andError();
             StackTrace.report(stackframes, url).then(done.fail, done)['catch'](done);
+        });
+
+        it('allows specification of request headers', function(done) {
+            var url = 'http://domain.ext/endpoint';
+            var stackframes = [new StackFrame({functionName: 'fn', fileName: 'file.js', lineNumber: 32, columnNumber: 1})];
+            var requestOptions = {headers: {'Access-Control-Request-Method': 'POST'}};
+
+            StackTrace.report(stackframes, url, null, requestOptions).then(callback, done.fail)['catch'](done.fail);
+
+            var postRequest = jasmine.Ajax.requests.mostRecent();
+            postRequest.respondWith({status: 201, contentType: 'text/plain', responseText: 'OK'});
+
+            function callback() {
+                expect(postRequest.data()).toEqual({stack: stackframes});
+                expect(postRequest.requestHeaders).toEqual({'Access-Control-Request-Method': 'POST', 'Content-Type': 'application/json'});
+                done();
+            }
         });
     });
 });

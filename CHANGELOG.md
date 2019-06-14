@@ -1,3 +1,21 @@
+## v2.0.0
+
+### ES6 Support
+
+ES6 code is now parsed and enhanced!
+
+### Extensible StackFrames
+
+StackFrames returned are now able to report on whether a function call was a `Constructor`, `native` code, or `eval` code. 
+
+### MIT License
+
+The community [has voted](https://github.com/stacktracejs/stacktrace.js/issues/187) to change the license of the project to the [MIT License](https://opensource.org/licenses/MIT)
+
+## v1.3.0
+
+* `Stacktrace.getSync()` gets a stack trace, synchronously. It does not attempt to map sources or guess function names, because those typically require network requests.
+
 ## v1.2.0
 
 * `StackTrace.report` now accepts an error message argument, and will add a `message: "given thing"` to the JSON payload if it is provided.
@@ -6,12 +24,15 @@
 ## v1.1.0
 
 ### Better parsing
+
 Updated [error-stack-parser](https://github.com/stacktracejs/error-stack-parser) to v1.3 which parses eval stack entries in a better way and fixes a bunch of bugs. 
 
 ### Better resource handling
+
 Updated [stacktrace-gps](https://github.com/stacktracejs/stacktrace-gps). Now reuses the same instance to avoid duplicate requests for the same resource by default. 
 
 ### Better dev experience
+
 JSCS and automated PR testing have been implemented to ensure consistent styles and quick feedback.
 
 > Possibly breaking changes: ErrorStackParser now provides it's own polyfill for `Array.map` and `Array.filter`. `eval` information is will display differently in stack traces.
