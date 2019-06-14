@@ -1,16 +1,9 @@
-(function(root, factory) {
-    'use strict';
-    // Universal Module Definition (UMD) to support AMD, CommonJS/Node.js, Rhino, and browsers.
 
-    /* istanbul ignore next */
-    if (typeof define === 'function' && define.amd) {
-        define('stacktrace', ['error-stack-parser', 'stack-generator', 'stacktrace-gps'], factory);
-    } else if (typeof exports === 'object') {
-        module.exports = factory(require('error-stack-parser'), require('stack-generator'), require('stacktrace-gps'));
-    } else {
-        root.StackTrace = factory(root.ErrorStackParser, root.StackGenerator, root.StackTraceGPS);
-    }
-}(this, function StackTrace(ErrorStackParser, StackGenerator, StackTraceGPS) {
+import ErrorStackParser from 'error-stack-parser';
+import StackGenerator from 'stack-generator';
+import StackTraceGPS from 'stacktrace-gps';
+
+function StackTrace() {
     var _options = {
         filter: function(stackframe) {
             // Filter out stackframes for this library by default
@@ -224,4 +217,6 @@
             });
         }
     };
-}));
+}
+
+export default StackTrace();
